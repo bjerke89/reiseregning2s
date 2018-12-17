@@ -1,0 +1,38 @@
+{
+  "name": "SopraSteria_REFrameWork",
+  "description": "Sopra Steria_REFrameWork Template",
+  "main": "Main.xaml",
+  "dependencies": {
+    "UiPath.Cognitive.Activities": "[2.1.6863.31992]",
+    "UiPath.Credentials.Activities": "[1.1.6479.13204]",
+    "UiPath.Cryptography.Activities": "[1.0.6863.32236]",
+    "UiPath.Database.Activities": "[1.2.6863.32528]",
+    "UiPath.Excel.Activities": "[2.4.6884.25683]",
+    "UiPath.FTP.Activities": "[1.0.6479.13206]",
+    "UiPath.IntelligentOCR.Activities": "[1.1.6863.32845]",
+    "UiPath.Java.Activities": "[1.0.6863.33114]",
+    "UiPath.Mail.Activities": "[1.2.6863.29868]",
+    "UiPath.PDF.Activities": "[1.2.6863.34697]",
+    "UiPath.Python.Activities": "[1.1.6863.33404]",
+    "UiPath.System.Activities": "[18.4.1]",
+    "UiPath.Terminal.Activities": "[1.2.6863.33681]",
+    "UiPath.UIAutomation.Activities": "[18.4.2]",
+    "UiPath.WebAPI.Activities": "[1.2.6863.33980]",
+    "UiPath.Word.Activities": "[1.2.6863.34260]"
+  },
+  "schemaVersion": "3.2",
+  "studioVersion": "17.1",
+  "projectVersion": "1.0.0.0",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  }
+}

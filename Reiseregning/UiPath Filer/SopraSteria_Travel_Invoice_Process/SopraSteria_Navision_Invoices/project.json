@@ -3,29 +3,35 @@
   "description": "Create Invoices In Navision Project",
   "main": "Main.xaml",
   "dependencies": {
-    "Microsoft.Activities": "1.0.1.0",
-    "Microsoft.Activities.Extensions": "2.0.6.9",
-    "UiPath.Cognitive.Activities": "1.0.6479.13212",
-    "UiPath.Core.Activities": "18.1.6659.10070",
-    "UiPath.Credentials.Activities": "1.1.6479.13204",
-    "UiPath.Database.Activities": "1.1.6660.26865",
-    "UiPath.Excel.Activities": "2.3.6660.23035",
-    "UiPath.Framework.Activities": "1.0.5905.30080",
-    "UiPath.FTP.Activities": "1.0.6479.13206",
-    "UiPath.Mail.Activities": "1.1.6562.21018",
-    "UiPath.PDF.Activities": "1.0.6479.13204",
-    "UiPath.Platform.Activities": "2.1.5992.2567",
-    "UiPath.Script.Activities": "1.0.6068.29800",
-    "UiPath.Terminal.Activities": "1.1.6464.20815",
-    "UiPath.WebAPI.Activities": "1.1.6479.13209",
-    "UiPath.Word.Activities": "1.1.6479.13205"
+    "Microsoft.Activities": "[1.0.1.0]",
+    "Microsoft.Activities.Extensions": "[2.0.6.9]",
+    "UiPath.Cognitive.Activities": "[1.0.6479.13212]",
+    "UiPath.Credentials.Activities": "[1.1.6479.13204]",
+    "UiPath.Database.Activities": "[1.1.6660.26865]",
+    "UiPath.Excel.Activities": "[2.3.6660.23035]",
+    "UiPath.System.Activities": "[18.4.1]",
+    "UiPath.FTP.Activities": "[1.0.6479.13206]",
+    "UiPath.Mail.Activities": "[1.1.6562.21018]",
+    "UiPath.PDF.Activities": "[1.0.6479.13204]",
+    "UiPath.UIAutomation.Activities": "[18.4.2]",
+    "UiPath.Script.Activities": "[1.0.6068.29800]",
+    "UiPath.Terminal.Activities": "[1.1.6464.20815]",
+    "UiPath.WebAPI.Activities": "[1.1.6479.13209]",
+    "UiPath.Word.Activities": "[1.1.6479.13205]"
   },
-  "excludedData": [
-    "Private:*",
-    "*password*"
-  ],
-  "toolVersion": "18.1.3.7",
+  "schemaVersion": "3.2",
+  "studioVersion": "18.1.3.7",
   "projectVersion": "1.0.6668.25839",
-  "packOptions": {},
-  "runtimeOptions": {}
+  "runtimeOptions": {
+    "autoDispose": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  }
 }
