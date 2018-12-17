@@ -1,0 +1,676 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Aditro_Download_Main_Attachment"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="id_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="id_Bilagsnr" Type="InArgument(x:String)" />
+    <x:Property Name="id_Prosjektnummer" Type="InArgument(x:String)" />
+    <x:Property Name="od_TravelNumber" Type="OutArgument(ui:GenericValue)" />
+    <x:Property Name="od_invoiceProcessed" Type="OutArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Aditro_Download_Main_Attachment_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Orchestrator.Client</x:String>
+      <x:String>UiPath.Orchestrator.Client.Models</x:String>
+      <x:String>UiPath.Credentials.Activities</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Checkpoint.Activities</x:String>
+      <x:String>UiPath.DataTable.Activities</x:String>
+      <x:String>UiPath.Dialog.Activities</x:String>
+      <x:String>UiPath.FileSystem.Activities</x:String>
+      <x:String>UiPath.Framework.Activities</x:String>
+      <x:String>UiPath.PowerShell.Activities</x:String>
+      <x:String>UiPath.RegEx.Activities</x:String>
+      <x:String>UiPath.FTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>UiPath.Mail.IMAP.Activities</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.POP3.Activities</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.PDF.Activities</x:String>
+      <x:String>UiPath.XPS.Activities</x:String>
+      <x:String>UiPath.Enterprise.Activities.Assets</x:String>
+      <x:String>UiPath.Enterprise.Activities.Process</x:String>
+      <x:String>UiPath.Enterprise.Activities.Queues</x:String>
+      <x:String>UiPath.Enterprise.Activities</x:String>
+      <x:String>UiPath.Script.Activities</x:String>
+      <x:String>UiPath.Script.Activities.PowerShell</x:String>
+      <x:String>UiPath.Script.Activities.AutoHotKey</x:String>
+      <x:String>UiPath.Web</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UiPath.JSON.Activities</x:String>
+      <x:String>UiPath.REST.Activities</x:String>
+      <x:String>UiPath.SOAP.Activities</x:String>
+      <x:String>UiPath.XML.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Web.ModelBinding</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OrchestratorClient</AssemblyReference>
+      <AssemblyReference>UiPath.Credentials.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Framework.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.FTP.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Enterprise.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Script.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Web</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Download Main Attachment" sap2010:WorkflowViewState.IdRef="Sequence_30">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="ui:Browser" Name="ld_ChromeBrowser" />
+      <Variable x:TypeArguments="x:String" Name="ld_bilagsnrAditro" />
+      <Variable x:TypeArguments="x:Int32" Name="ld_refreshCounter" />
+      <Variable x:TypeArguments="x:Boolean" Name="ld_fileExist" />
+    </Sequence.Variables>
+    <ui:PathExists DisplayName="Path exists" Exists="[ld_fileExist]" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[id_Config(&quot;AttachmentFolder&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\&quot; + id_Prosjektnummer + &quot;_&quot; + id_Bilagsnr + &quot;\&quot; + id_Prosjektnummer + &quot;_&quot; + id_Bilagsnr + &quot;.pdf&quot;]" PathType="File" />
+    <If Condition="[ld_fileExist]" sap2010:WorkflowViewState.IdRef="If_3">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_46">
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[od_invoiceProcessed]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Travel invoice with bilagsnr: &quot;+ id_Bilagsnr +&quot; already exists&quot;]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_43">
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[od_invoiceProcessed]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create directory" sap2010:WorkflowViewState.IdRef="CreateDirectory_3" Path="[id_Config(&quot;AttachmentFolder&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\&quot; + id_Prosjektnummer + &quot;_&quot; + id_Bilagsnr]" />
+          <DoWhile DisplayName="Do while" sap2010:WorkflowViewState.IdRef="DoWhile_2" Condition="[Not ld_bilagsnrAditro = id_Bilagsnr]">
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_40">
+              <If Condition="[ld_refreshCounter &gt; 5]" sap2010:WorkflowViewState.IdRef="If_2">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_42">
+                    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Administrasj...'" sap2010:WorkflowViewState.IdRef="BrowserScope_16" InformativeScreenshot="e844713a20153cd0966169c26f93f238" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;">
+                      <ui:BrowserScope.Body>
+                        <ActivityAction x:TypeArguments="x:Object">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                            <ui:RefreshBrowser Browser="{x:Null}" DisplayName="Refresh browser" sap2010:WorkflowViewState.IdRef="RefreshBrowser_1" />
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:BrowserScope.Body>
+                    </ui:BrowserScope>
+                    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="Refreshed browser due to slow performance..." />
+                    <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[ld_refreshCounter]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[ld_refreshCounter]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[ld_refreshCounter +1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Else>
+              </If>
+              <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Administrasj...'" sap2010:WorkflowViewState.IdRef="BrowserScope_17" InformativeScreenshot="73a6e2c8a2398a2f2405d02c9a9a9295" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;">
+                <ui:BrowserScope.Body>
+                  <ActivityAction x:TypeArguments="x:Object">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_45">
+                      <ui:OnUiElementAppear ContinueOnError="{x:Null}" FoundElement="{x:Null}" DisplayName="On Element Appear 'BUTTON'" sap2010:WorkflowViewState.IdRef="OnUiElementAppear_5" RepeatForever="False" WaitActive="False" WaitVisible="False">
+                        <ui:OnUiElementAppear.Body>
+                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BUTTON'" sap2010:WorkflowViewState.IdRef="Click_10" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                              <ui:Click.CursorPosition>
+                                <ui:CursorPosition Position="Center">
+                                  <ui:CursorPosition.OffsetX>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetX>
+                                  <ui:CursorPosition.OffsetY>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetY>
+                                </ui:CursorPosition>
+                              </ui:Click.CursorPosition>
+                              <ui:Click.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1c285bdd3f98ed95ac5e8ad63ec749f2" Selector="&lt;webctrl aaname='                             Avansert                         ' idx='1' tag='BUTTON' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:Click.Target>
+                            </ui:Click>
+                          </Sequence>
+                        </ui:OnUiElementAppear.Body>
+                        <ui:OnUiElementAppear.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="17bb08d0e29e6f2e1c390a2126452551" Selector="&lt;webctrl aaname='                             Avansert                         ' idx='1' tag='BUTTON' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:OnUiElementAppear.Target>
+                      </ui:OnUiElementAppear>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:BrowserScope.Body>
+              </ui:BrowserScope>
+              <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Administrasj...'" sap2010:WorkflowViewState.IdRef="BrowserScope_11" InformativeScreenshot="6df2a1d7d9cecda9cbd5f0900dd9e973" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;" UiBrowser="[ld_ChromeBrowser]">
+                <ui:BrowserScope.Body>
+                  <ActivityAction x:TypeArguments="x:Object">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                      <ui:OnUiElementAppear ContinueOnError="{x:Null}" FoundElement="{x:Null}" DisplayName="On Element Appear 'INPUT'" sap2010:WorkflowViewState.IdRef="OnUiElementAppear_3" RepeatForever="False" WaitActive="False" WaitVisible="False">
+                        <ui:OnUiElementAppear.Body>
+                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into 'Bilagsnummer'" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_5" SendWindowMessages="False" SimulateType="False" Text="[id_Bilagsnr]">
+                              <ui:TypeInto.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6dc81a179c4d0dc918c91dd6fb43faa3" Selector="&lt;webctrl aaname='Legg inn reiseregningsnummer Spesialtegn ikke tillatt (^ ; &amp;lt; &amp;gt; #*' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                              </ui:TypeInto.Target>
+                            </ui:TypeInto>
+                          </Sequence>
+                        </ui:OnUiElementAppear.Body>
+                        <ui:OnUiElementAppear.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="d3aa067a72c4d8dec8147333b2c706ff" Selector="&lt;webctrl aaname='Legg inn reiseregningsnummer Spesialtegn ikke tillatt (^ ; &amp;lt; &amp;gt; #*' tag='INPUT' /&gt;" TimeoutMS="30000" WaitForReady="INTERACTIVE" />
+                        </ui:OnUiElementAppear.Target>
+                      </ui:OnUiElementAppear>
+                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BUTTON'" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a46580f2e2136f3d053cb3d8169506f9" Selector="&lt;webctrl aaname='Bruk søkefilter' idx='1' tag='BUTTON' type='button' /&gt;" WaitForReady="INTERACTIVE" />
+                        </ui:Click.Target>
+                      </ui:Click>
+                      <ui:OnUiElementAppear ContinueOnError="{x:Null}" FoundElement="{x:Null}" DisplayName="On Element Appear 'SPAN'" sap2010:WorkflowViewState.IdRef="OnUiElementAppear_4" RepeatForever="False" WaitActive="False" WaitVisible="False">
+                        <ui:OnUiElementAppear.Body>
+                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                            <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'SPAN'" sap2010:WorkflowViewState.IdRef="GetValue_1">
+                              <ui:GetValue.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b7bbf3306f0d7a9ac75a0aa7c27bde2b" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;&lt;webctrl aaname='*' parentid='claims' tag='SPAN' tableCol='10' tableRow='1' /&gt;" WaitForReady="COMPLETE" />
+                              </ui:GetValue.Target>
+                              <ui:GetValue.Value>
+                                <OutArgument x:TypeArguments="x:String">[ld_bilagsnrAditro]</OutArgument>
+                              </ui:GetValue.Value>
+                            </ui:GetValue>
+                          </Sequence>
+                        </ui:OnUiElementAppear.Body>
+                        <ui:OnUiElementAppear.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="cd0f4543b04213d7748da2e5115c60e6" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;&lt;webctrl aaname='*' parentid='claims' tag='SPAN' tableCol='10' tableRow='1' /&gt;" TimeoutMS="30000" WaitForReady="COMPLETE" />
+                        </ui:OnUiElementAppear.Target>
+                      </ui:OnUiElementAppear>
+                      <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[ld_bilagsnrAditro]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[ld_bilagsnrAditro.Split("_"c)(1)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <If Condition="[ld_bilagsnrAditro = id_Bilagsnr]" sap2010:WorkflowViewState.IdRef="If_1">
+                        <If.Else>
+                          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser" sap2010:WorkflowViewState.IdRef="BrowserScope_15" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;">
+                            <ui:BrowserScope.Body>
+                              <ActivityAction x:TypeArguments="x:Object">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BUTTON'" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                    <ui:Click.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </ui:Click.CursorPosition>
+                                    <ui:Click.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0958d042263a17274e6e29e1942bf579" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;&lt;webctrl idx='1' tag='BUTTON' /&gt;" WaitForReady="INTERACTIVE" />
+                                    </ui:Click.Target>
+                                  </ui:Click>
+                                </Sequence>
+                              </ActivityAction>
+                            </ui:BrowserScope.Body>
+                          </ui:BrowserScope>
+                        </If.Else>
+                      </If>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:BrowserScope.Body>
+              </ui:BrowserScope>
+            </Sequence>
+          </DoWhile>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Administrasj...'" sap2010:WorkflowViewState.IdRef="BrowserScope_14" InformativeScreenshot="6df2a1d7d9cecda9cbd5f0900dd9e973" Selector="&lt;html app='chrome.exe' title='Administrasjon av reiser' /&gt;" UiBrowser="[ld_ChromeBrowser]">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                  <ui:OnImageVanish ContinueOnError="{x:Null}" DisplayName="On image vanish 'chrome.exe Administrasj...'" sap2010:WorkflowViewState.IdRef="OnImageVanish_2" RepeatForever="False">
+                    <ui:OnImageVanish.Body>
+                      <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                        <ui:InjectJsScript InputParameter="{x:Null}" DisplayName="Inject js script 'TD'" sap2010:WorkflowViewState.IdRef="InjectJsScript_7" ScriptCode="SopraSteria_Aditro_Download\Scripts\GetTravelNumber.js">
+                          <ui:InjectJsScript.ScriptOutput>
+                            <OutArgument x:TypeArguments="ui:GenericValue">[od_TravelNumber]</OutArgument>
+                          </ui:InjectJsScript.ScriptOutput>
+                          <ui:InjectJsScript.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f2103b0be245e5d6400d5af0ccf0ba87" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;table' idx='1' tag='TABLE' /&gt;&lt;webctrl tableCol='12' tag='TD' /&gt;" WaitForReady="INTERACTIVE" />
+                          </ui:InjectJsScript.Target>
+                        </ui:InjectJsScript>
+                      </Sequence>
+                    </ui:OnImageVanish.Body>
+                    <ui:OnImageVanish.Image>
+                      <ui:ImageTarget Image="{x:Null}" Accuracy="0.8" TargetImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFAAAAAqCAYAAAAkqNwKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALnSURBVGhD7ZnPSxtBFMf7B/oniCCCCCIIIojgRRDBSy4iePES8BjwIm3TpmzblNBYaC1Jii2UhiypNAnYbFOaUF73zcyG2eyLTfLYNQvvC59D5lfw49uZcX0EElZEIDMikBkRyExE4PH7Y1jILQhjQD92IgJx0OLjRWEM6MeOCJwSEchEBDIRgUxEIBMRyEQEMklM4PLTZTj/dA6VVgVuf91C/Wcdcp9zsOlskuPTQiICd4u70PndMSuG4/U9OHh7QM5LA7ELXC+sQ6vXUmsN/g4g/y0PZ5UzuPhyEWpHydT8eSd2gfiYYnqDHuyX9kN9KLfpNVV/+Xs51DcRDVfNHabr0OMiZKHaB3AbVN90xC4wEIQiqf6jqyPVj8F9khpDkW17AP0qZK02px3+PJ6UCFx6smRWASWKGrP6bNWMANh6uUWOoXC6/v7ZzpJ943HAVdJTVIF3f+7UOqcfT8n+jRcbqh+z92aPHENBVWAYX5ZZV8cFt+tBtYZ9IwJrVfBXm+EXkoBAvLZgbjo3qiJH++09kuq/D6xCTPQH1/LsdiXcb3XUZ0ugkTdrNcYuEK8oQUrNkqo4bMf9Dk/iIJdfLyNzJ0PL8HWZ6vLBw8WqTpTntR2r6gKBWjTnUY5dIFKoF8xqOsH1xc7JhxNy7sSoE1lXmKo2cyJreboSsWJtgZhZHlubRAQi+FdIsB9SwUd45/UOOXcysJpMFZoKdCx54X0vXIEciYkJRHCPOywfqgMF/5ew9nxNXayDYGXi3ZCaO4rTDfYzg1WBY/fA4WNty+RJTFQgBUq9/nFtvk0fNiv5FXKsjT4U7FhCUaYvGMUMEzqxbYE+5iC5/1SneXCBCN4FG92G+UaAolskx00GVtRIdcbIXAhEtl9tqxcLQdLylmZuBCJ45cG3NrV2beo74UMxVwLTiAhkIgKZiEAmIpCJCGQiApmIQCb/FZh5l1GDBJrMVcaY0okIlEwXEciMCGRGBLIC8A9SFCzGlahDWwAAAABJRU5ErkJggg==" />
+                    </ui:OnImageVanish.Image>
+                    <ui:OnImageVanish.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="30000" WaitForReady="INTERACTIVE" />
+                    </ui:OnImageVanish.Target>
+                  </ui:OnImageVanish>
+                </Sequence>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+          </ui:BrowserScope>
+          <ui:OnImageAppear ContinueOnError="{x:Null}" FoundElement="{x:Null}" DisplayName="On image appear 'chrome.exe Travel,'" sap2010:WorkflowViewState.IdRef="OnImageAppear_2" RepeatForever="False">
+            <ui:OnImageAppear.Body>
+              <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Travel,'" sap2010:WorkflowViewState.IdRef="BrowserScope_12" InformativeScreenshot="0feafefa31261f0750384f694439818f" Selector="&lt;html app='chrome.exe' title='Travel, *' url='https://scandinavianhrportal.steria.no/Aditro/Travel/Voucher/Preview?type=Claim&amp;amp;shadowNumber=*' /&gt;">
+                  <ui:BrowserScope.Body>
+                    <ActivityAction x:TypeArguments="x:Object">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_25">
+                        <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_8" Key="p" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                          <ui:SendHotkey.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="INTERACTIVE" />
+                          </ui:SendHotkey.Target>
+                        </ui:SendHotkey>
+                        <ui:SendHotkey DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="2000" DisplayName="Send hotkey 'EMBED  plugin'" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_7" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                          <ui:SendHotkey.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="311f502c8b7c5e420232e51db7fc9f2f" WaitForReady="INTERACTIVE" />
+                          </ui:SendHotkey.Target>
+                        </ui:SendHotkey>
+                      </Sequence>
+                    </ActivityAction>
+                  </ui:BrowserScope.Body>
+                </ui:BrowserScope>
+              </Sequence>
+            </ui:OnImageAppear.Body>
+            <ui:OnImageAppear.Image>
+              <ui:ImageTarget Image="{x:Null}" Accuracy="0.8" TargetImageBase64="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" />
+            </ui:OnImageAppear.Image>
+            <ui:OnImageAppear.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" Selector="&lt;html app='chrome.exe' title='Travel, *' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:OnImageAppear.Target>
+          </ui:OnImageAppear>
+          <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'chrome.exe  Save As'" sap2010:WorkflowViewState.IdRef="WindowScope_2" InformativeScreenshot="a7c20736c3b9142669c06b5ada673aae" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Save*' /&gt;">
+            <ui:WindowScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                  <ui:OnUiElementAppear ContinueOnError="{x:Null}" FoundElement="{x:Null}" DisplayName="On Element Appear 'ComboBox'" sap2010:WorkflowViewState.IdRef="OnUiElementAppear_2" RepeatForever="False" WaitActive="False" WaitVisible="False">
+                    <ui:OnUiElementAppear.Body>
+                      <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_27">
+                        <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into 'Edit'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_6" SendWindowMessages="False" SimulateType="False" Text="[id_Config(&quot;AttachmentFolder&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\&quot; + id_Prosjektnummer + &quot;_&quot; + id_Bilagsnr + &quot;\&quot; + id_Prosjektnummer + &quot;_&quot; + id_Bilagsnr + &quot;.pdf&quot;]">
+                          <ui:TypeInto.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1114a9ea858e492e9ce88a62e73dd682" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Save*' /&gt;&lt;wnd aaname='Explorer Pane' cls='DirectUIHWND' /&gt;&lt;wnd aaname='File name:' cls='ComboBox' /&gt;&lt;wnd ctrlid='1001' aaname='File name:' cls='Edit' /&gt;" WaitForReady="INTERACTIVE" />
+                          </ui:TypeInto.Target>
+                        </ui:TypeInto>
+                        <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap2010:WorkflowViewState.IdRef="Click_7" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                          <ui:Click.CursorPosition>
+                            <ui:CursorPosition Position="Center">
+                              <ui:CursorPosition.OffsetX>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:CursorPosition.OffsetX>
+                              <ui:CursorPosition.OffsetY>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:CursorPosition.OffsetY>
+                            </ui:CursorPosition>
+                          </ui:Click.CursorPosition>
+                          <ui:Click.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="637c067716800c279875879312bfee5d" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Save*' /&gt;&lt;wnd ctrlid='1' title='&amp;amp;Save' aaname='Save' cls='Button' /&gt;" WaitForReady="INTERACTIVE" />
+                          </ui:Click.Target>
+                        </ui:Click>
+                      </Sequence>
+                    </ui:OnUiElementAppear.Body>
+                    <ui:OnUiElementAppear.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a8afb30b26792754b1531a3920935c64" Selector="&lt;wnd aaname='Explorer Pane' cls='DirectUIHWND' /&gt;&lt;wnd aaname='File name:' cls='ComboBox' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:OnUiElementAppear.Target>
+                  </ui:OnUiElementAppear>
+                </Sequence>
+              </ActivityAction>
+            </ui:WindowScope.Body>
+          </ui:WindowScope>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Travel,'" sap2010:WorkflowViewState.IdRef="BrowserScope_13" InformativeScreenshot="0feafefa31261f0750384f694439818f" Selector="&lt;html app='chrome.exe' title='Travel, *' url='https://scandinavianhrportal.steria.no/Aditro/Travel/Voucher/Preview?type=Claim&amp;amp;shadowNumber=*' /&gt;">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                  <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send hotkey 'HTML '" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_6" Key="w" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+                    <ui:SendHotkey.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f6a37615371e7af67a8f04dc662a2d37" Selector="&lt;webctrl tag='HTML' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:SendHotkey.Target>
+                  </ui:SendHotkey>
+                </Sequence>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+          </ui:BrowserScope>
+          <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Succesfully download travel invoice for bilagsnr &quot; + id_Bilagsnr]" />
+        </Sequence>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d4YBSTpcUmVpc2VyZWduaW5nXFVpUGF0aCBGaWxlclxTb3ByYVN0ZXJpYV9UcmF2ZWxfSW52b2ljZV9Qcm9jZXNzXFNvcHJhU3RlcmlhX0FkaXRyb19Eb3dubG9hZFxBZGl0cm9cQWRpdHJvX0Rvd25sb2FkX1RyYXZlbF9JbnZvaWNlLnhhbWx4fQPGAw4CAQGEAQWEAYcDAwGUAYUBBcQDCgIBAoQBNYQBRQMBnAGEAXqEAfQCAwGVAYUBE4UBIwIBA4cBCZEBFAMBjAGUAQnCAxQCAQWIAQuPARQDAZABkAELkAHTAQMBjQGVAQucARQDAYgBnQELnQG6AgMBggGeAQvIAhUCATrJAgvnAh0CASvoAguIAx4CASCJAwuwAxwCAQ6xAwvAAx0CAQnBAwvBA8oBAgEGjQE3jQE7AwGTAYoBOIoBTQMBkQGQAXiQAdABAwGOAZoBN5oBPAMBiwGXATiXAU0DAYkBnQGSAZ0BtwIDAYMBngFhngGIAQIBf58BDccCGAIBO8kCngLJAuACAgE5yQLrAskC/wICATfPAhHkAhwCASzqAg+AAxoCASToAsMB6ALKAQIBIYYDZYYDmAECASODAzmDAz4CASKJA5oCiQPVAgIBH48DEa0DHAIBD7EDqwKxA8sDAgENtwMRvQMcAgEKwQN4wQPHAQIBB6ABD8QBFAIBbMUBD+cBIQIBY+gBD8YCIQIBPNACE+MCJgIBLesCEf8CIwIBJZADE6wDKgIBELgDE7wDIwIBC6ABHaABOQIBbaIBE7gBHgIBdLsBE8IBHAIBb8UBtwLFAfkCAgFrywEV5AEgAgFk6AGiAugB5AICAWLoAe8C6AGDAwIBYO4BFcMCIAIBPdICF9sCIgIBMdACuwHQAsIBAgEu4QJt4QJ0AgEw3gJB3gJGAgEv6wKxAusC0QMCASrxAhf8AiICASaSAxenAyICAROQA8sBkAPSAQIBEaoDpgGqA48CAgESugOmAboDxAECAQyjARWuAScCAXuvARWvAbMBAgF5sAEVtwEeAgF1wAE9wAFTAgFyvQE+vQFRAgFwzAEX4wEuAgFl7wEX/AEuAgFX/QEXiwIiAgFVjAIXnAIuAgFMnQIXpAIgAgFHpQIXwgIcAgE+0wIZ2gItAgEy8gIZ9gIpAgEp9wIZ+wIpAgEnkwMZlwMnAgEWmAMZpgMkAgEUowG9AqMB/wICAX6pARurASYCAXyvAYIBrwGwAQIBerUBP7UBQAIBeLIBQLIBUwIBds4BG94BJgIBaMwBzQHMAdQBAgFm4QGqAeEBmgICAWfxARv3ASYCAVvvAcwB7wHTAQIBWPoBlQH6AY0CAgFa+gGYAvoBnwICAVmJAqoBiQL5AQIBVo4CG5cCJgIBUIwCywGMAtIBAgFNmgKVAZoCqwICAU+aArYCmgK9AgIBTqICQqICZAIBSp8CQ58CVgIBSKUCJaUCSAIBP6cCG8ACLQIBQtUCTNUCXQIBNdgCrAHYAv8CAgE00wKoAdMC4AECATP3Ao0B9wKTAQIBKJUDrAGVA4gDAgEekwOqApMDpAQCARekA6wBpAOwAgIBFaoBHaoBlgECAX3PAR3dASgCAWnyAR32ASsCAVyPAh2WAisCAVGnAu0BpwKvAgIBRq0CIb0CLAIBQ9sBsAHbAaACAgFq9AGwAfQBqAICAV/yAbUC8gHEAgIBXZQCSZQCXAIBUpECsAGRAsYCAgFUrgIjvAIuAgFEugK2AboCngICAUU=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="PathExists_1" sap:VirtualizedContainerService.HintSize="1134,90" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="314,93" />
+      <sap2010:ViewStateData Id="Sequence_46" sap:VirtualizedContainerService.HintSize="336,317">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="751,60" />
+      <sap2010:ViewStateData Id="CreateDirectory_3" sap:VirtualizedContainerService.HintSize="751,22" />
+      <sap2010:ViewStateData Id="RefreshBrowser_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_41" sap:VirtualizedContainerService.HintSize="222,146">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_16" sap:VirtualizedContainerService.HintSize="414,292" />
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="414,93" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="414,60" />
+      <sap2010:ViewStateData Id="Sequence_42" sap:VirtualizedContainerService.HintSize="436,649">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="703,799" />
+      <sap2010:ViewStateData Id="Click_10" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_44" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OnUiElementAppear_5" sap:VirtualizedContainerService.HintSize="414,406" />
+      <sap2010:ViewStateData Id="Sequence_45" sap:VirtualizedContainerService.HintSize="436,530">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_17" sap:VirtualizedContainerService.HintSize="703,676" />
+      <sap2010:ViewStateData Id="TypeInto_5" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Sequence_31" sap:VirtualizedContainerService.HintSize="336,258">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OnUiElementAppear_3" sap:VirtualizedContainerService.HintSize="539,434" />
+      <sap2010:ViewStateData Id="Click_6" sap:VirtualizedContainerService.HintSize="539,106" />
+      <sap2010:ViewStateData Id="GetValue_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OnUiElementAppear_4" sap:VirtualizedContainerService.HintSize="539,406" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="539,60" />
+      <sap2010:ViewStateData Id="Click_9" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_38" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_15" sap:VirtualizedContainerService.HintSize="414,338" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="539,487" />
+      <sap2010:ViewStateData Id="Sequence_24" sap:VirtualizedContainerService.HintSize="561,1777">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_11" sap:VirtualizedContainerService.HintSize="703,1923">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_40" sap:VirtualizedContainerService.HintSize="725,3602">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DoWhile_2" sap:VirtualizedContainerService.HintSize="751,3766">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InjectJsScript_7" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Sequence_35" sap:VirtualizedContainerService.HintSize="336,258">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OnImageVanish_2" sap:VirtualizedContainerService.HintSize="414,404" />
+      <sap2010:ViewStateData Id="Sequence_36" sap:VirtualizedContainerService.HintSize="436,528">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_14" sap:VirtualizedContainerService.HintSize="751,674">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SendHotkey_8" sap:VirtualizedContainerService.HintSize="314,117" />
+      <sap2010:ViewStateData Id="SendHotkey_7" sap:VirtualizedContainerService.HintSize="314,155" />
+      <sap2010:ViewStateData Id="Sequence_25" sap:VirtualizedContainerService.HintSize="336,436">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_12" sap:VirtualizedContainerService.HintSize="414,582" />
+      <sap2010:ViewStateData Id="Sequence_26" sap:VirtualizedContainerService.HintSize="436,706">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OnImageAppear_2" sap:VirtualizedContainerService.HintSize="751,852">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TypeInto_6" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_7" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_27" sap:VirtualizedContainerService.HintSize="336,404">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OnUiElementAppear_2" sap:VirtualizedContainerService.HintSize="414,580" />
+      <sap2010:ViewStateData Id="Sequence_28" sap:VirtualizedContainerService.HintSize="436,704">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="751,52">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SendHotkey_6" sap:VirtualizedContainerService.HintSize="314,155" />
+      <sap2010:ViewStateData Id="Sequence_29" sap:VirtualizedContainerService.HintSize="336,279">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_13" sap:VirtualizedContainerService.HintSize="751,425">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="751,93" />
+      <sap2010:ViewStateData Id="Sequence_43" sap:VirtualizedContainerService.HintSize="773,6348">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="1134,6498" />
+      <sap2010:ViewStateData Id="Sequence_30" sap:VirtualizedContainerService.HintSize="1156,6752">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Aditro_Download_Main_Attachment_1" sap:VirtualizedContainerService.HintSize="1196,7912" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

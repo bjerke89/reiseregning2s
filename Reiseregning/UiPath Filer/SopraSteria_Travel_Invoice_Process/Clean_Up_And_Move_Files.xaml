@@ -1,0 +1,171 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Clean_Up_And_Move_Files"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:si="clr-namespace:System.IO;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="id_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Clean_Up_And_Move_Files_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Clean_Up_And_Move_Files" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:String[]" Name="la_Reports" />
+      <Variable x:TypeArguments="s:String[]" Name="la_Grunnlagsfiler" />
+    </Sequence.Variables>
+    <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create directory Month" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[id_Config(&quot;ArkivFilePath&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString]" />
+    <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create directory for report" sap2010:WorkflowViewState.IdRef="CreateDirectory_2" Path="[id_Config(&quot;ArkivFilePath&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\Viderefakturerings rapporter&quot;]" />
+    <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create directory for grunnlagsfiler" sap2010:WorkflowViewState.IdRef="CreateDirectory_3" Path="[id_Config(&quot;ArkivFilePath&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\Grunnlagsfiler&quot;]" />
+    <Assign DisplayName="Get Report files" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[la_Reports]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[Directory.GetFileSystemEntries(id_Config("ReportSavePath").ToString)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[la_Grunnlagsfiler]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[Directory.GetFileSystemEntries(id_Config("DATFilePath").ToString)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEach x:TypeArguments="x:Object" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[la_Reports]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="filepath" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <ui:MoveFile ContinueOnError="{x:Null}" Destination="[id_Config(&quot;ArkivFilePath&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\Viderefakturerings rapporter\&quot;]" DisplayName="Move file" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[filepath.ToString]" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:ForEach x:TypeArguments="x:Object" DisplayName="For each" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[la_Grunnlagsfiler]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="filepath" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <ui:MoveFile ContinueOnError="{x:Null}" Destination="[id_Config(&quot;ArkivFilePath&quot;).ToString + id_Config(&quot;CurrentMonth&quot;).ToString + &quot;\Grunnlagsfiler\&quot;]" DisplayName="Move file" sap2010:WorkflowViewState.IdRef="MoveFile_2" Overwrite="False" Path="[filepath.ToString]" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <InvokeMethod DisplayName="Invoke method" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Move" TargetType="si:Directory">
+      <InArgument x:TypeArguments="x:String">[id_Config("AttachmentFolder").ToString + "\"]</InArgument>
+      <InArgument x:TypeArguments="x:String">[id_Config("ArkivFilePath").ToString + id_Config("CurrentMonth").ToString +"\" + "Vedlegg fra Aditro"]</InArgument>
+    </InvokeMethod>
+    <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create directory for Vedlegg" sap2010:WorkflowViewState.IdRef="CreateDirectory_4" Path="I:\Reiseregning\Vedlegg fra Aditro" />
+    <ui:CopyFile ContinueOnError="{x:Null}" Destination="[id_Config(&quot;ReportSavePath&quot;).ToString + id_Config(&quot;TemplateFileName&quot;).ToString]" DisplayName="Copy file" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="False" Path="[id_Config(&quot;MalerFilePath&quot;).ToString + id_Config(&quot;TemplateFileName&quot;).ToString]" />
+    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="Successfully moved files to archive..." />
+    <sads:DebugSymbol.Symbol>d1xJOlxSZWlzZXJlZ25pbmdcVWlQYXRoIEZpbGVyXFNvcHJhU3RlcmlhX1RyYXZlbF9JbnZvaWNlX1Byb2Nlc3NcQ2xlYW5fVXBfQW5kX01vdmVfRmlsZXMueGFtbCNFA30OAgEBSgVK9QECATdLBUumAgIBM0wFTKACAgEvTQVUDgIBK1UFXA4CASddBWgSAgEdaQV0EgIBE3UFeBQCAQ15BXm/AQIBC3oFeuICAgEEewV7nQECAQJKkgFK8gECAThLlwFLowICATRMnwFMnQICATBSMlJ4AgEuTzNPPwIBLFoyWnUCASpXM1dGAgEoXXhdhgECASVjC2UWAgEeaXhpjQECARtvC3EWAgEUdy53lAECARB2LnZcAgEOeZgBebwBAgEMejl6ngECAQh6+wF63wICAQV7cnuaAQIBA2QNZMMCAgEfcA1wtQICARVkQWTOAQIBImSrAmTAAgIBIHBBcMABAgEYcJ0CcLICAgEW</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="CreateDirectory_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="CreateDirectory_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="CreateDirectory_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="MoveFile_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="222,146">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="314,280" />
+      <sap2010:ViewStateData Id="MoveFile_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="222,146">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="314,280" />
+      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="314,132">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CreateDirectory_4" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="CopyFile_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,1537">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Clean_Up_And_Move_Files_1" sap:VirtualizedContainerService.HintSize="376,1617" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
