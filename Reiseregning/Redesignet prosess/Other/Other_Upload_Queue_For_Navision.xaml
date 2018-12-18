@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Other_Upload_Queue_For_Aditro"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Other_Upload_Queue_For_Navision"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -12,13 +12,14 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="id_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="od_AditroTransactionsUploaded" Type="OutArgument(x:Boolean)" />
-    <x:Property Name="od_AditroTransactionDataCount" Type="OutArgument(x:Int32)" />
+    <x:Property Name="ot_NavisionGrunnlagsData" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="od_NavisionTransactionDataCount" Type="OutArgument(x:Int32)" />
+    <x:Property Name="od_NavisionTransactionsUploaded" Type="OutArgument(x:Boolean)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap2010:WorkflowViewState.IdRef>Other_Upload_Queue_For_Aditro_1</sap2010:WorkflowViewState.IdRef>
+  <sap2010:WorkflowViewState.IdRef>Other_Upload_Queue_For_Navision_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -113,18 +114,15 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="lt_AditroTransactionData" />
-    </Sequence.Variables>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
     <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel application scope" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[id_Config(&quot;MainFilePath&quot;).ToString]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <ui:ExcelReadRange AddHeaders="True" DataTable="[lt_AditroTransactionData]" DisplayName="Read Range from Excel sheet" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="Grunnlaget">
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <ui:ExcelReadRange AddHeaders="True" DataTable="[ot_NavisionGrunnlagsData]" DisplayName="Read Range from Excel sheet" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="Grunnlaget">
               <ui:ExcelReadRange.Range>
                 <InArgument x:TypeArguments="x:String">
                   <Literal x:TypeArguments="x:String" Value="" />
@@ -135,7 +133,7 @@
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <ui:FilterDataTable DataTable="[lt_AditroTransactionData]" DisplayName="Remove empty rows" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[lt_AditroTransactionData]" SelectColumnsMode="Keep">
+    <ui:FilterDataTable DataTable="[ot_NavisionGrunnlagsData]" DisplayName="Remove empty rows" FilterRowsMode="Remove" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[ot_NavisionGrunnlagsData]" SelectColumnsMode="Keep">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="EMPTY">
@@ -153,22 +151,21 @@
     </ui:FilterDataTable>
     <Assign DisplayName="Check no. of rows in TransactionDataTable" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:Int32">[od_AditroTransactionDataCount]</OutArgument>
+        <OutArgument x:TypeArguments="x:Int32">[od_NavisionTransactionDataCount]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:Int32">[lt_AditroTransactionData.Rows.Count]</InArgument>
+        <InArgument x:TypeArguments="x:Int32">[ot_NavisionGrunnlagsData.Rows.Count]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[lt_AditroTransactionData]" DisplayName="For each row " sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ot_NavisionGrunnlagsData]" DisplayName="For each row " sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
           </ActivityAction.Argument>
-          <Sequence sap2010:Annotation.AnnotationText="For each row in the Transaction datatable the loop will upload to Orchestrator Queue. You can add transaction info by adding column data to the ItemInformation collection. &#xA;&#xA;If the transaction data has unique values ex. a invoice number you should also refer to this in the Reference property. This will make it easier to see  as it shows up on the Transaction List in Orchestrator. " DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_3">
-            <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add queue item" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="[id_Config(&quot;AditroQueueName&quot;).ToString]" Reference="[row(0).ToString]">
+          <Sequence sap2010:Annotation.AnnotationText="For each row in the Transaction datatable the loop will upload to Orchestrator Queue. You can add transaction info by adding column data to the ItemInformation collection. &#xA;&#xA;If the transaction data has unique values ex. a invoice number you should also refer to this in the Reference property. This will make it easier to see  as it shows up on the Transaction List in Orchestrator. " DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add queue item" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="[id_Config(&quot;NavisionQueueName&quot;).ToString]" Reference="[row(2).ToString]">
               <ui:AddQueueItem.ItemInformation>
-                <InArgument x:TypeArguments="x:String" x:Key="Bilagsnr">[row(0).ToString]</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="Prosjektnummer">[row(2).ToString]</InArgument>
               </ui:AddQueueItem.ItemInformation>
             </ui:AddQueueItem>
@@ -178,19 +175,19 @@
     </ui:ForEachRow>
     <Assign DisplayName="Assign that transactions are uploaded" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:Boolean">[od_AditroTransactionsUploaded]</OutArgument>
+        <OutArgument x:TypeArguments="x:Boolean">[od_NavisionTransactionsUploaded]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:Boolean">True</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Download from aditro queue. &quot;+ id_Config(&quot;LogMessage_UploadTransactionData&quot;).ToString + od_AditroTransactionDataCount.ToString]" />
-    <sads:DebugSymbol.Symbol>d3pDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcT3RoZXJcT3RoZXJfVXBsb2FkX1F1ZXVlX0Zvcl9BZGl0cm8ueGFtbBx0A70BDgIBAXgFiQEgAgEeigEFmQEaAgEYmgEFoQEOAgEUogEFsgEVAgEKswEFugEOAgEGuwEFuwGMAgIBAniwAXjgAQIBJX4LhgEWAgEfjwE2jwFCAgEdigG8AYoB2AECARuKASOKAT8CARmfAS+fAVQCARecATCcAU8CARWiATaiAVICARKoAQuvARYCAQu4ATG4ATUCAQm1ATK1AVECAQe7AXK7AYkCAgEDfw2FASECASCpAQ2uAR8CAQx/PH9YAgEjggETggFCAgEif8ABf8wBAgEhqQH5AakBjAICARGpAbsBqQHuAQIBD6sBSasBWgIBDqwBT6wBYAIBDQ==</sads:DebugSymbol.Symbol>
+    <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Download from aditro queue. &quot;+ id_Config(&quot;LogMessage_UploadTransactionData&quot;).ToString + od_NavisionTransactionDataCount.ToString]" />
+    <sads:DebugSymbol.Symbol>d3ZDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcT3RoZXJfVXBsb2FkX1F1ZXVlX0Zvcl9OYXZpc2lvbi54YW1sG3UDugEOAgEBdgWHASACAR2IAQWXARoCAReYAQWfAQ4CAROgAQWvARUCAQqwAQW3AQ4CAQa4AQW4AY4CAgECdrABduABAgEkfAuEARYCAR6NATaNAUICARyIAbwBiAHYAQIBGogBI4gBPwIBGJ0BL50BVAIBFpoBMJoBUQIBFKABNqABUgIBEaYBC6wBFgIBC7UBMbUBNQIBCbIBMrIBUwIBB7gBcrgBiwICAQN9DYMBIQIBH6cBDasBHwIBDH08fVgCASKAAROAAUICASF9wAF9zAECASCnAfsBpwGOAgIBEKcBuwGnAfABAgEOqQFPqQFgAgEN</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="ExcelReadRange_1" sap:VirtualizedContainerService.HintSize="314,59" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,183">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,183">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -201,7 +198,7 @@
       <sap2010:ViewStateData Id="FilterDataTable_1" sap:VirtualizedContainerService.HintSize="414,59" />
       <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="414,60" />
       <sap2010:ViewStateData Id="AddQueueItem_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="222,368">
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="222,368">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -212,14 +209,14 @@
       <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="414,516" />
       <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="414,60" />
       <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="414,91" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="436,1402">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="436,1402">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Other_Upload_Queue_For_Aditro_1" sap:VirtualizedContainerService.HintSize="476,1482" />
+      <sap2010:ViewStateData Id="Other_Upload_Queue_For_Navision_1" sap:VirtualizedContainerService.HintSize="476,1482" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
