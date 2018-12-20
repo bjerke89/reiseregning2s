@@ -2,8 +2,6 @@
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
- xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities"
- xmlns:s="clr-namespace:System;assembly=mscorlib"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
@@ -61,8 +59,6 @@
       <AssemblyReference>System.Core</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
-      <AssemblyReference>UiPath.Core</AssemblyReference>
-      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
       <AssemblyReference>PresentationFramework</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>PresentationCore</AssemblyReference>
@@ -70,6 +66,18 @@
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Cryptography</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.PDF</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
@@ -154,7 +162,7 @@
         </ActivityAction>
       </ui:WindowScope.Body>
     </ui:WindowScope>
-    <ui:ForEachRow DataTable="[it_ProsjektnumberItems]" DisplayName="For each row" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[it_ProsjektnumberItems]" DisplayName="For each row" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
@@ -237,18 +245,44 @@
         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="f592d06cf03e4075e2d86f00e2d7991f" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='Microsoft Dynamics NAV' /&gt;" TimeoutMS="3000" WaitForReady="INTERACTIVE" />
       </ui:UiElementExists.Target>
     </ui:UiElementExists>
-    <If Condition="[ld_ErrorFound]" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[ld_ErrorFound]" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_11">
-          <Sequence.Variables>
-            <Variable x:TypeArguments="s:Exception" Name="ld_Exception" />
-          </Sequence.Variables>
-          <p:CreateException x:TypeArguments="s:Exception" DisplayName="Create exception" sap2010:WorkflowViewState.IdRef="CreateException`1_1" Message="[&quot;There was problems with saving the invoice with project number &quot; + id_Prosjektnummer]" Result="[ld_Exception]" />
-          <Throw Exception="[ld_Exception]" sap2010:WorkflowViewState.IdRef="Throw_2" />
+        <Sequence>
+          <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'Microsoft.Dynamics.Nav....'" InformativeScreenshot="421a77749c1531af66a989c2f011650f" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='Microsoft Dynamics NAV' /&gt;">
+            <ui:WindowScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do">
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'WindowsForms10.BUTTON.a...'" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="94da57c0bd78f1bd69126eb02c6cde7a" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='Microsoft Dynamics NAV' /&gt;&lt;wnd cls='WindowsForms10.Window.*' title='Microsoft Dynamics NAV' /&gt;&lt;wnd ctrlname='LayoutPlaceholder' /&gt;&lt;wnd ctrlname='dialogActionBar' /&gt;&lt;wnd cls='WindowsForms10.BUTTON.*' title='Yes' /&gt;" WaitForReady="INTERACTIVE" />
+                    </ui:Click.Target>
+                    <sap2010:WorkflowViewState.IdRef>Click_1</sap2010:WorkflowViewState.IdRef>
+                  </ui:Click>
+                  <sap2010:WorkflowViewState.IdRef>Sequence_10</sap2010:WorkflowViewState.IdRef>
+                </Sequence>
+              </ActivityAction>
+            </ui:WindowScope.Body>
+            <sap2010:WorkflowViewState.IdRef>WindowScope_7</sap2010:WorkflowViewState.IdRef>
+          </ui:WindowScope>
+          <Throw Exception="[New BusinessRuleException(&quot;Error saving the invoice&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+          <sap2010:WorkflowViewState.IdRef>Sequence_11</sap2010:WorkflowViewState.IdRef>
         </Sequence>
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d2lkOlxQcm9maWxlc1xycm9iZXJ0YVxEb2N1bWVudHNcVWlQYXRoXFNvcHJhU3RlcmlhX05hdmlzaW9uX0ludm9pY2VzXE5hdmlzaW9uXE5hdmlzaW9uX0NyZWF0ZV9JbnZvaWNlLnhhbWxDAbIBAbcBAQQBfAGCAQEDAegBAfABAQJMA/wBDgIBAVAFXxYCAUZgBYIBHAIBM4MBBZwBFgIBKp0BBdoBFQIBF9sBBeoBFgIBE+sBBe8BGgIBDvABBfoBCgIBAlCbAlCgAwIBSVYLXBYCAUdiCX0UAgE2YMABYMcBAgE0gAGYAYAB6QUCATWDAZsCgwGOAwIBMokBC5kBFgIBK50BHp0BOAIBKKMBC9cBFgIBGNsBmwLbAfoCAgEW4QEL5wEWAgEU7QGDAe0B9wECARLtAYIC7QGIAgIBEesBWusBawIBD/ABE/ABJAIBA/IBCfgBFAIBBVcNWx0CAUhjC3wcAgE3igENjgEbAgEvjwENkwEdAgEulAENmAEbAgEspAEN1gEeAgEZ4gEN5gEdAgEV9gEL9gGXAgIBCfcBC/cBWQIBBmOhAmOSAwIBRWkReRwCATiMAaABjAGfBgIBMYoBsQKKAagDAgEwlAGXApQBtQICAS2kAaMCpAGWAwIBJ6oBE9MBHgIBGvYBmQH2AfwBAgEM9gGEAvYBlAICAQr3ARz3ASwCAQdqE24hAgFBbxNzIQIBPXQTeCECATmrARWvASMCASWwARW0ASUCASS1ARW5ASMCASK6ARW+ASMCASC/ARXDASUCAR/EARXIASUCAR7JARXNASUCAR3OARXSASMCARtspgFszgUCAURqugJq5wICAUJxpgFxuAUCAUBvugJv5wICAT52pgF2xQUCATx0ugJ05gICATqrAZ8CqwGBAwIBJrUBnwK1AbUDAgEjugGgAroB3wMCASHOAaACzgH9AgIBHA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d3dDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcTmF2aXNpb25cTmF2aXNpb25fQ3JlYXRlX0ludm9pY2UueGFtbEwBsgEBtwEBBAF8AYIBAQMB6AEB8AEBAlQDngIOAgEBWAVnFgIBS2gFigEcAgE4iwEFpAEWAgEupQEF4gEVAgEX4wEF8gEWAgES8wEF9wEaAgEN+AEFnAIKAgECWJsCWKADAgFPXgtkFgIBTGoJhQEUAgE7aMABaMcBAgE5iAGYAYgB6QUCATqLAZsCiwGOAwIBN5EBC6EBFgIBL6UBNqUBUAIBLKsBC98BFgIBGOMBmwLjAfoCAgEW6QEL7wEWAgET9QGDAfUB9wECARH1AYIC9QGIAgIBEPMBWvMBawIBDvgBE/gBJAIBA/oBCZoCFAIBBV8NYx0CAU1rC4QBHAIBPJIBDZYBGwIBNJcBDZsBHQIBMpwBDaABGwIBMKwBDd4BHgIBGeoBDe4BHQIBFPsBC5cCHAIBCJgCC5gCjAECAQZfiQJfjAICAU5roQJrkgMCAUpxEYEBHAIBPZQBoAGUAZ8GAgE2kgGxApIBqAMCATWXAfsBlwH+AQIBM5wBlwKcAbUCAgExrAGjAqwBlgMCASuyARPbAR4CARrqAewB6gHxAQIBFfsB8QH7AeUCAgEMgQIRkwIcAgEJmAIcmAJfAgEHchN2IQIBRncTeyECAUJ8E4ABIQIBPrMBFbcBIwIBKbgBFbwBJQIBJ70BFcEBIwIBJcIBFcYBIwIBI8cBFcsBJQIBIcwBFdABJQIBH9EBFdUBJQIBHdYBFdoBIwIBG4ICE5ECHgIBCnSmAXTOBQIBSXK6AnLnAgIBR3mmAXm4BQIBRXe6AnfnAgIBQ36mAX7FBQIBQXy6AnzmAgIBP7MBnwKzAYEDAgEquAGDArgBhgICASi9AZ8CvQG1AwIBJsIBoALCAd8DAgEkxwGDAscBiQICASLMAYMCzAGJAgIBINEBgwLRAYoCAgEe1gGgAtYB/QICARyOAqYBjgLtAwIBCw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -260,7 +294,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="466,424" />
+      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="561,424" />
       <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="314,134" />
       <sap2010:ViewStateData Id="TypeInto_2" sap:VirtualizedContainerService.HintSize="314,134" />
       <sap2010:ViewStateData Id="TypeInto_3" sap:VirtualizedContainerService.HintSize="314,134" />
@@ -279,7 +313,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="OnUiElementAppear_1" sap:VirtualizedContainerService.HintSize="466,1052" />
+      <sap2010:ViewStateData Id="OnUiElementAppear_1" sap:VirtualizedContainerService.HintSize="561,1052" />
       <sap2010:ViewStateData Id="TypeInto_4" sap:VirtualizedContainerService.HintSize="314,134" />
       <sap2010:ViewStateData Id="SendHotkey_2" sap:VirtualizedContainerService.HintSize="314,154" />
       <sap2010:ViewStateData Id="TypeInto_6" sap:VirtualizedContainerService.HintSize="314,96" />
@@ -290,7 +324,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_4" sap:VirtualizedContainerService.HintSize="466,734" />
+      <sap2010:ViewStateData Id="WindowScope_4" sap:VirtualizedContainerService.HintSize="561,734" />
       <sap2010:ViewStateData Id="TypeInto_8" sap:VirtualizedContainerService.HintSize="314,96" />
       <sap2010:ViewStateData Id="SendHotkey_3" sap:VirtualizedContainerService.HintSize="314,154" />
       <sap2010:ViewStateData Id="TypeInto_9" sap:VirtualizedContainerService.HintSize="314,96" />
@@ -314,7 +348,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="466,1822" />
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="561,1822" />
       <sap2010:ViewStateData Id="SendHotkey_7" sap:VirtualizedContainerService.HintSize="314,116" />
       <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="336,240">
         <sap:WorkflowViewStateService.ViewState>
@@ -323,26 +357,41 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_6" sap:VirtualizedContainerService.HintSize="466,386" />
-      <sap2010:ViewStateData Id="UiElementExists_1" sap:VirtualizedContainerService.HintSize="466,106" />
-      <sap2010:ViewStateData Id="CreateException`1_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="Throw_2" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="222,208">
+      <sap2010:ViewStateData Id="WindowScope_6" sap:VirtualizedContainerService.HintSize="561,386" />
+      <sap2010:ViewStateData Id="UiElementExists_1" sap:VirtualizedContainerService.HintSize="561,106" />
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="336,230">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="466,356" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="488,5244">
+      <sap2010:ViewStateData Id="WindowScope_7" sap:VirtualizedContainerService.HintSize="414,376">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Throw_1" sap:VirtualizedContainerService.HintSize="414,22" />
+      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="436,562">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Navision_Create_Invoice_1" sap:VirtualizedContainerService.HintSize="528,6004" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="561,710" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="583,5598">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Navision_Create_Invoice_1" sap:VirtualizedContainerService.HintSize="623,5678" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

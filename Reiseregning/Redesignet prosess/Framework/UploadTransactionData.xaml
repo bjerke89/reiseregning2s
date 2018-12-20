@@ -102,12 +102,12 @@
             <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[id_Config]</InArgument>
             <OutArgument x:TypeArguments="sd:DataTable" x:Key="ot_NavisionGrunnlagsData">[ot_NavisionGrunnlagsData]</OutArgument>
             <OutArgument x:TypeArguments="x:Int32" x:Key="od_NavisionTransactionDataCount">[od_AditroTransactionDataCount]</OutArgument>
-            <OutArgument x:TypeArguments="x:Boolean" x:Key="od_NavisionTransactionsUploaded">[cd_AditroTransactionsUploaded]</OutArgument>
+            <OutArgument x:TypeArguments="x:Boolean" x:Key="od_NavisionTransactionsUploaded">[cd_NavisionTransactionsUploaded]</OutArgument>
           </ui:InvokeWorkflowFile.Arguments>
         </ui:InvokeWorkflowFile>
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d3ZDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcRnJhbWV3b3JrXFVwbG9hZFRyYW5zYWN0aW9uRGF0YS54YW1sEFMDbw4CAQFXBWEKAgEPYgVtCgIBAlcTVzsCARBZCV8hAgESYhNiPQIBA2QJayECAQVdWl15AgEYXFxcewIBFltgW2sCARRZzgFZ+AECARNpXml9AgENZ1pndAIBC2hcaHsCAQlmYGZrAgEHZNABZPwBAgEG</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d3ZDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcRnJhbWV3b3JrXFVwbG9hZFRyYW5zYWN0aW9uRGF0YS54YW1sEFMDbw4CAQFXBWEKAgEPYgVtCgIBAlcTVzsCARBZCV8hAgESYhNiPQIBA2QJayECAQVdWl15AgEYXFxcewIBFltgW2sCARRZzgFZ+AECARNpXml/AgENZ1pndAIBC2hcaHsCAQlmYGZrAgEHZNABZPwBAgEG</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

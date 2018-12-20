@@ -7,6 +7,7 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
@@ -14,6 +15,8 @@
     <x:Property Name="id_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="id_URL" Type="InArgument(x:String)" />
     <x:Property Name="id_AttachmentUrl" Type="InArgument(x:String)" />
+    <x:Property Name="id_AditroQueueProcessed" Type="InArgument(x:Boolean)" />
+    <x:Property Name="it_NavisionGrunnlagsData" Type="InArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -42,6 +45,7 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -73,8 +77,9 @@
       <AssemblyReference>UiPath.PDF</AssemblyReference>
       <AssemblyReference>UiPath.Word</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Description: In this file all other process specific files will be invoked. If an application exception occurs, the current transaction can be retried. If a BusinessRuleException is thrown, the transaction will be skipped. Can be a flowchart or sequence. " DisplayName="ProcessTransaction" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -83,34 +88,104 @@
       <Variable x:TypeArguments="x:Boolean" Name="ld_invoiceProcessed" />
       <Variable x:TypeArguments="x:Int32" Name="ld_downloadCounter" />
     </Sequence.Variables>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Aditro_Download_Travel_Invoice workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Aditro\Aditro_Download_Travel_Invoice.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[id_Config]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="id_Bilagsnr">[id_TransactionItem.SpecificContent("Bilagsnr").ToString]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="id_Prosjektnummer">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
-        <OutArgument x:TypeArguments="ui:GenericValue" x:Key="od_TravelNumber">[ld_travelNumber]</OutArgument>
-        <OutArgument x:TypeArguments="x:Boolean" x:Key="od_invoiceProcessed">[ld_invoiceProcessed]</OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Aditro_Download_Attachments workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Aditro\Aditro_Download_Attachments.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="id_URL">[id_URL]</InArgument>
-        <InArgument x:TypeArguments="ui:GenericValue" x:Key="id_TravelNumber">[ld_travelNumber]</InArgument>
-        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[id_Config]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="id_Bilagsnr">[id_TransactionItem.SpecificContent("Bilagsnr").ToString]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="id_Prosjektnummer">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="id_AttachmentURL">[id_AttachmentUrl]</InArgument>
-        <InOutArgument x:TypeArguments="x:Int32" x:Key="cd_DownloadCounter">[ld_downloadCounter]</InOutArgument>
-        <InArgument x:TypeArguments="x:Boolean" x:Key="id_InvoiceProcesssed">[ld_invoiceProcessed]</InArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcUHJvY2Vzcy54YW1sElADbA4CAQFWBV4dAgESXwVqHQIBAltQW2ECARpcTlxjAgEYWFxYZwIBFllEWX0CARVWywFW9wECARRaSlqJAQIBE2ZJZlsCARBiT2JgAgEOYT9hRwIBDGNcY2cCAQpnTWdhAgEIaE5oYwIBBmREZH0CAQVfyAFf8QECAQRlSmWJAQIBAw==</sads:DebugSymbol.Symbol>
+    <If Condition="[id_AditroQueueProcessed = True]" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="ld_customerNumber" />
+            <Variable x:TypeArguments="x:String" Name="ld_yourReference" />
+            <Variable x:TypeArguments="sd:DataTable" Name="lt_ProjectnumberItems" />
+          </Sequence.Variables>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Other_Get_Project_Items workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Other\Other_Get_Project_Items.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="id_Projectnumber">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="ot_ProjectnumberItems">[lt_ProjectnumberItems]</OutArgument>
+              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[id_Config]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="it_NavisionGrunnlagItems">[it_NavisionGrunnlagsData]</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Navision_Check_Project workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Navision\Navision_Check_Project.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="id_Prosjektnummer">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="od_CustomerNumber">[ld_customerNumber]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="od_YourReference">[ld_yourReference]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Navision_Create_Invoice workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Navision\Navision_Create_Invoice.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="id_CustomerNumber">[ld_customerNumber]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="id_YourReference">[ld_yourReference]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="it_ProsjektnumberItems">[lt_ProjectnumberItems]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="id_Prosjektnummer">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Aditro_Download_Travel_Invoice workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Aditro\Aditro_Download_Travel_Invoice.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[id_Config]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="id_Bilagsnr">[id_TransactionItem.SpecificContent("Bilagsnr").ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="id_Prosjektnummer">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
+              <OutArgument x:TypeArguments="ui:GenericValue" x:Key="od_TravelNumber">[ld_travelNumber]</OutArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="od_invoiceProcessed">[ld_invoiceProcessed]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Aditro_Download_Attachments workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Aditro\Aditro_Download_Attachments.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="id_URL">[id_URL]</InArgument>
+                    <InArgument x:TypeArguments="ui:GenericValue" x:Key="id_TravelNumber">[ld_travelNumber]</InArgument>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[id_Config]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="id_Bilagsnr">[id_TransactionItem.SpecificContent("Bilagsnr").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="id_Prosjektnummer">[id_TransactionItem.SpecificContent("Prosjektnummer").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="id_AttachmentURL">[id_AttachmentUrl]</InArgument>
+                    <InOutArgument x:TypeArguments="x:Int32" x:Key="cd_DownloadCounter">[ld_downloadCounter]</InOutArgument>
+                    <InArgument x:TypeArguments="x:Boolean" x:Key="id_InvoiceProcesssed">[ld_invoiceProcessed]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
+        </Sequence>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d15DOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcUHJvY2Vzcy54YW1sHlUDnQEOAgEBWwWbAQoCAQJbE1s1AgEDXQl6FAIBEX0JmQEUAgEFYwtqIwIBImsLcSMCARtyC3kjAgESfguGASMCAQeHAQuYARsCAQZmWWZwAgEpaFtodQIBJ2diZ20CASVjygFj7gECASRlT2WOAQIBI29Qb2ICASBryQFr7wECAR9uUW5kAgEdbVBtjwECARx2WXZwAgEZdU91YQIBF3LKAXLxAQIBFnRQdGMCARR3UHePAQIBE4MBVoMBZwIBD4QBVIQBaQIBDYABYoABbQIBC4EBSoEBgwECAQp+0QF+/QECAQmCAVCCAY8BAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,465">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="416,87" />
       <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,425">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,211">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="416,289" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="438,540">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="799,688" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="821,854">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -118,7 +193,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ProcessTransaction_1" sap:VirtualizedContainerService.HintSize="376,505" />
+      <sap2010:ViewStateData Id="ProcessTransaction_1" sap:VirtualizedContainerService.HintSize="861,934" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

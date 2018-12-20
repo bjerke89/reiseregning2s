@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Navision_Check_Project" this:Navision_Check_Project.id_Prosjektnummer="1071747"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Navision_Check_Project"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -7,13 +7,10 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
- xmlns:this="clr-namespace:"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="id_Prosjektnummer" Type="InArgument(x:String)" />
-    <x:Property Name="od_ProjectExists" Type="OutArgument(x:Boolean)" />
-    <x:Property Name="od_ProjectExpensible" Type="OutArgument(x:Boolean)" />
     <x:Property Name="od_CustomerNumber" Type="OutArgument(x:String)" />
     <x:Property Name="od_YourReference" Type="OutArgument(x:String)" />
   </x:Members>
@@ -57,18 +54,32 @@
       <AssemblyReference>System.Core</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
-      <AssemblyReference>UiPath.Core</AssemblyReference>
-      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
       <AssemblyReference>PresentationFramework</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>PresentationCore</AssemblyReference>
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Cryptography</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.PDF</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Navision_Check_Project" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="ld_ProjectExists" />
+      <Variable x:TypeArguments="x:Boolean" Name="ld_ProjectExpensible" />
+    </Sequence.Variables>
     <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'Microsoft.Dynamics.Nav....'" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="e738f4dcba799b5911c6b7d5269ce7ab" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='View - project evaluation' /&gt;">
       <ui:WindowScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
@@ -86,7 +97,7 @@
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="538e92e72b272a71723a501581324206" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='View - project evaluation' /&gt;&lt;wnd cls='WindowsForms10.Window.*' title='View - project evaluation' /&gt;&lt;wnd ctrlname='LayoutPlaceholder' /&gt;&lt;wnd ctrlname='content' /&gt;&lt;wnd ctrlname='contentAndMessagesPlaceholder' /&gt;&lt;wnd ctrlname='contentAndFilterPlaceholder' /&gt;&lt;wnd aaname='Filter pane' cls='WindowsForms10.Window.*' /&gt;&lt;wnd cls='WindowsForms10.Window.*' idx='1' /&gt;&lt;wnd ctrlname='levelOneFilterPanel' /&gt;&lt;wnd ctrlname='lookForFilter' /&gt;&lt;wnd aaname='Type to filter' cls='WindowsForms10.EDIT.*' /&gt;" WaitForReady="INTERACTIVE" />
               </ui:TypeInto.Target>
             </ui:TypeInto>
-            <ui:UiElementExists DisplayName="Element Exists 'cell  No. Row 0'" Exists="[od_ProjectExists]" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+            <ui:UiElementExists DisplayName="Element Exists 'cell  No. Row 0'" Exists="[ld_ProjectExists]" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
               <ui:UiElementExists.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="c7a5513ed41e4655aabe326c8f6ea6ab" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='View - project evaluation' /&gt;&lt;wnd cls='WindowsForms10.Window.*' title='View - project evaluation' /&gt;&lt;wnd ctrlname='LayoutPlaceholder' /&gt;&lt;wnd ctrlname='content' /&gt;&lt;wnd ctrlname='contentAndMessagesPlaceholder' /&gt;&lt;wnd ctrlname='contentAndFilterPlaceholder' /&gt;&lt;wnd ctrlname='contentPlaceholder' /&gt;&lt;wnd cls='WindowsForms10.Window.*' idx='1' /&gt;&lt;wnd ctrlname='_DataGrid' /&gt;&lt;ctrl name='DataGridView' role='table' /&gt;&lt;ctrl name='Row 0' role='row' /&gt;&lt;ctrl name='No. Row 0' role='cell' /&gt;" TimeoutMS="3000" WaitForReady="INTERACTIVE" />
               </ui:UiElementExists.Target>
@@ -95,7 +106,7 @@
         </ActivityAction>
       </ui:WindowScope.Body>
     </ui:WindowScope>
-    <If Condition="[od_ProjectExists]" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[ld_ProjectExists]" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
           <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'Microsoft.Dynamics.Nav....'" sap2010:WorkflowViewState.IdRef="WindowScope_2" InformativeScreenshot="e738f4dcba799b5911c6b7d5269ce7ab" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='View - project evaluation' /&gt;">
@@ -145,7 +156,7 @@
                 </ui:GetValue>
                 <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="checked" DisplayName="Get attribute 'WindowsForms10.BUTTON.a...'" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
                   <ui:GetAttribute.Result>
-                    <OutArgument x:TypeArguments="x:Boolean">[od_ProjectExpensible]</OutArgument>
+                    <OutArgument x:TypeArguments="x:Boolean">[ld_ProjectExpensible]</OutArgument>
                   </ui:GetAttribute.Result>
                   <ui:GetAttribute.Target>
                     <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f91ad6121629646c67471406cfdbf96d" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='Edit - Job Card - *' /&gt;&lt;wnd cls='WindowsForms10.Window.*' title='Edit - Job Card - *' /&gt;&lt;wnd ctrlname='LayoutPlaceholder' /&gt;&lt;wnd ctrlname='content' /&gt;&lt;wnd ctrlname='contentAndMessagesPlaceholder' /&gt;&lt;wnd ctrlname='ContentPlaceholder' /&gt;&lt;wnd cls='WindowsForms10.Window.*' title='General' /&gt;&lt;wnd aaname='Travel Exp. Invoice' cls='WindowsForms10.BUTTON.*' /&gt;" WaitForReady="INTERACTIVE" />
@@ -162,14 +173,31 @@
               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2799f6e6dfabeb6f90633844002b00b7" Selector="&lt;wnd app='microsoft.dynamics.nav.client.exe' cls='WindowsForms10.Window.*' title='Edit - Job Card *' /&gt;" WaitForReady="INTERACTIVE" />
             </ui:OnUiElementAppear.Target>
           </ui:OnUiElementAppear>
-          <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Successfully extracted navision data from project number &quot; + id_Prosjektnummer]" />
+          <If Condition="[(ld_ProjectExists = True) AND (ld_ProjectExpensible = True)]" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Then>
+              <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Successfully extracted navision data from project number &quot; + id_Prosjektnummer]" />
+            </If.Then>
+            <If.Else>
+              <If Condition="[ld_ProjectExists]" sap2010:WorkflowViewState.IdRef="If_3">
+                <If.Then>
+                  <Throw Exception="[New BusinessRuleException(&quot;Project number &quot; + id_Prosjektnummer +&quot; is not marked as expensible&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                </If.Then>
+                <If.Else>
+                  <Throw Exception="[New BusinessRuleException(&quot;Project number&quot; + id_Prosjektnummer +&quot; does not exist...&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                </If.Else>
+              </If>
+            </If.Else>
+          </If>
         </Sequence>
       </If.Then>
       <If.Else>
-        <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Project number &quot; + id_Prosjektnummer + &quot; does not exist&quot;]" />
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Project number &quot; + id_Prosjektnummer + &quot; does not exist&quot;]" />
+          <Throw Exception="[New BusinessRuleException(&quot;Project does not exist&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </Sequence>
       </If.Else>
     </If>
-    <sads:DebugSymbol.Symbol>d4sBZDpcUHJvZmlsZXNccnJvYmVydGFcRG9jdW1lbnRzXFVpUGF0aFxTb3ByYVN0ZXJpYV9UcmF2ZWxfSW52b2ljZV9Qcm9jZXNzXFNvcHJhU3RlcmlhX05hdmlzaW9uX0ludm9pY2VzXE5hdmlzaW9uXE5hdmlzaW9uX0NoZWNrX1Byb2plY3QueGFtbCkBegGCAQECRwOtAQ4CAQFIBWEWAgEkYgWrAQoCAQJImwJIkgMCATBOC14WAgElYhNiJwIBA2QJpgEUAgEIqQEJqQHKAQIBBU8NUx0CAS9UDVgbAgErWQ1dIgIBJmULfhwCAR9/C6QBIgIBDKUBC6UB2AECAQmpAXapAccBAgEGVqABVp4GAgEuVLQCVOECAgEsW4sBW4MGAgEqW44GW5QGAgEpWVdZawIBJ2WhAmWYAwIBI2sRexwCASCBAQ+fARoCAQ9/1QF/3AECAQ2iAZ4BogGNAgIBDqUBeKUB1QECAQpsE3oeAgEhggERiQEfAgEbigERkQEfAgEXkgERmQEjAgESmgERngEhAgEQeKYBeJ4GAgEihwE9hwFQAgEchAGkAYQBhwUCAR6PAT2PAU8CARiMAaQBjAGBBQIBGpIBR5IBUAIBFZQBPpQBVAIBE5cBpAGXAYoFAgEWnAGkAZwBkwICARE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d3ZDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcTmF2aXNpb25cTmF2aXNpb25fQ2hlY2tfUHJvamVjdC54YW1sNU4DyQEOAgEBUwVsFgIBM20FxwEKAgECU5sCU5IDAgFAWQtpFgIBNG0TbScCAQNvCb8BFAIBC8IBCcUBFAIBBVoNXh0CAT5fDWMbAgE6ZA1oIgIBNXALiQEcAgEuigELrwEiAgEasAELvgEQAgEMwwELwwHMAQIBCMQBC8QBigECAQZa7AFa8AECAT9hoAFhngYCAT1ftAJf4QICATtmiwFmgwYCATlmjgZmlAYCAThkV2RrAgE2cKECcJgDAgEydhGGARwCAS+MAQ+qARoCAR2KAdUBigHcAQIBG60BngGtAY0CAgEcsAEZsAFYAgENsgEPsgHcAQIBF7UBD7wBFAIBEMMBeMMByQECAQnEARzEAV0CAQd3E4UBHgIBMI0BEZQBHwIBKpUBEZwBHwIBJp0BEaQBIwIBIaUBEakBIQIBHrIBfLIB2QECARi1AR21ATECARG3ARO3AckBAgEVugETugG+AQIBE4MBpgGDAZ4GAgExkgE9kgFQAgErjwGkAY8BhwUCAS2aAT2aAU8CASeXAaQBlwGBBQIBKZ0BR50BUAIBJJ8BPp8BVAIBIqIBpAGiAYoFAgElpwGkAacBkwICASClAY0CpQGSAgIBH7cBJLcBnAECARa6ASS6AZEBAgEU</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -183,7 +211,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="775,706" />
+      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="1186,706" />
       <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="314,106" />
       <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,230">
         <sap:WorkflowViewStateService.ViewState>
@@ -192,7 +220,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="414,376" />
+      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="803,376" />
       <sap2010:ViewStateData Id="GetValue_1" sap:VirtualizedContainerService.HintSize="314,106" />
       <sap2010:ViewStateData Id="GetValue_2" sap:VirtualizedContainerService.HintSize="314,106" />
       <sap2010:ViewStateData Id="GetAttribute_1" sap:VirtualizedContainerService.HintSize="314,134" />
@@ -204,9 +232,13 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="OnUiElementAppear_1" sap:VirtualizedContainerService.HintSize="414,920" />
-      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="414,91" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="436,1591">
+      <sap2010:ViewStateData Id="OnUiElementAppear_1" sap:VirtualizedContainerService.HintSize="803,920" />
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Throw_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Throw_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,208" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="803,356" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="825,1856">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -214,15 +246,23 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="775,1739" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="797,2609">
+      <sap2010:ViewStateData Id="Throw_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336,277">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Navision_Check_Project_1" sap:VirtualizedContainerService.HintSize="837,2689" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="1186,2004" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1208,2874">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Navision_Check_Project_1" sap:VirtualizedContainerService.HintSize="1248,2954" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
