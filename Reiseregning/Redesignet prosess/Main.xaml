@@ -75,6 +75,7 @@
       <AssemblyReference>UiPath.Word</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <StateMachine sap2010:Annotation.AnnotationText="-- Sopra Steria Robotic Enterprise Framework --&#xA;-- TEMPLATE--" DisplayName="General Business Process - Sopra Steria ReFramework" sap2010:WorkflowViewState.IdRef="StateMachine_1">
@@ -84,10 +85,6 @@
           <TryCatch DisplayName="Catch intialization exceptions" sap2010:WorkflowViewState.IdRef="TryCatch_2">
             <TryCatch.Try>
               <Sequence DisplayName="Init State" sap2010:WorkflowViewState.IdRef="Sequence_4">
-                <Sequence.Variables>
-                  <Variable x:TypeArguments="ui:GenericValue" Name="gd_url" />
-                  <Variable x:TypeArguments="x:String" Name="gd_attachmentUrl" />
-                </Sequence.Variables>
                 <Assign DisplayName="Initialize SystemError" sap2010:WorkflowViewState.IdRef="Assign_5">
                   <Assign.To>
                     <OutArgument x:TypeArguments="s:Exception">[gd_systemError]</OutArgument>
@@ -377,6 +374,10 @@
                                           <ui:InvokeWorkflowFile.Arguments>
                                             <InArgument x:TypeArguments="ui:QueueItem" x:Key="id_TransactionItem">[gd_transactionItem]</InArgument>
                                             <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="id_Config">[gd_config]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="id_URL">[gd_url]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="id_AttachmentUrl">[gd_attachmentUrl]</InArgument>
+                                            <InArgument x:TypeArguments="x:Boolean" x:Key="id_AditroQueueProcessed">[gd_aditroQueueProcessed]</InArgument>
+                                            <InArgument x:TypeArguments="sd:DataTable" x:Key="it_NavisionGrunnlagsData">[gt_navisionGrunnlagsData]</InArgument>
                                           </ui:InvokeWorkflowFile.Arguments>
                                         </ui:InvokeWorkflowFile>
                                       </Sequence>
@@ -574,8 +575,10 @@
       <Variable x:TypeArguments="x:Boolean" Default="False" Name="gd_navisionQueueProcessed" />
       <Variable x:TypeArguments="x:Boolean" Name="gd_navisionTransactionsUploaded" />
       <Variable x:TypeArguments="x:Int32" Name="gd_navisionTransactionDataCount" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="gd_url" />
+      <Variable x:TypeArguments="x:String" Name="gd_attachmentUrl" />
     </StateMachine.Variables>
-    <sads:DebugSymbol.Symbol>d1tDOlxVc2Vyc1xuaWNob2xhcy5iamVya2VcRG9jdW1lbnRzXFJlaXNlcmVnbmluZzJzXFJlaXNlcmVnbmluZ1xSZWRlc2lnbmV0IHByb3Nlc3NcTWFpbi54YW1svQFQA8MEEgIBAbAEM7AENgMBowKyBDOyBDYDAaICuAQzuAQ2AwGhAr0ENb0EPAMBoAK+BDW+BDwDAZ8CoAIX9wMfAwHWAesCH8QDJwMBoAHqAReXAh8DAYoBUgelBA8CASq/AQ+BBBcCAQKiAhvmAiYDAfMByQMzyQNVAwHxAccDH8cD7wEDAe0BzwMzzwOgAQMB7AHNAx/NA8IBAwHqAeQDM+QDogEDAekB0wMf4gMqAwHgAfQDM/QDoQEDAd8B6AMf8gMqAwHYAe0CI70DLgMBpwHAA54BwAO+AQMBpAHBA6cBwQPRAQMBowHCA5ICwgPXAgMBogHsARuVAiYDAYwBVAu6ARYCAUuGBCOGBFsCAUeEBA+EBJ0BAgFGjAQjjARBAgFEigQPigT8AQIBQKIEI6IEQAIBPpAED6AEGgIBLMEBE+UBHgIBEZwCK5wCSQIBDpoCF5oCkwICAQqeAnyeAqQBAgEI/gMr/gNOAgEG/AMX/AO1AQIBBKYCHaYClgEDAZwCpwId5QIiAwH0AccDjQHHA+wBAwHuAc0DjQHNA78BAwHrAdQDIdQDxgEDAecB1QMh3AMqAwHjAd0DIeEDOQMB4QHpAyHpA74BAwHdAeoDIfEDKgMB2QHvAif+AjIDAcsBoQMnuwMyAwGyAYYDK40DNAMBrQGVAyucAzQDAagB7gEf9AEqAwGdAfwBI5ECLgMBjQFWD5kBGgIBWqEBE7YBGAIBTIoEfYoE+QECAUGRBBGRBLgCAgE5kgQRlgQpAgE1lwQRngQaAgEwnwQRnwTkAQIBLcIBFeQBIAIBEpoChgGaApACAgEL/AOFAfwDsgECAQWmAoIBpgKTAQMBnQKnAiunAjwDAfUBqQIhswIsAwGVArYCIeMCLAMB9wHUA48B1APDAQMB6AHaA03aA1EDAeYB1wNO1wNnAwHkAd0D1gHdA/ABAwHiAekDjwHpA7sBAwHeAe8DTe8DUQMB3AHsA07sA2kDAdoB8AIp9wIyAwHSAfgCKf0CQQMBzAGjAyuvA0MDAbcBtwMvtwOPAgMBswGLA2aLA3EDAbABiANniAOBAQMBrgGaA1maA2QDAasBlwNalwNqAwGpAe8BIfMBOQMBngH9ASX9AckCAwGYAf4BJZACMAMBjgFbEWIaAwGGAWMRgAEWAgFvgQERmAEWAgFboQH3AaEB0AICAU2jAReqASACAVWtARe0ASACAVCRBH+RBLUCAgE6lARolARzAgE3kgTKAZIE6wECATacBDucBFACATOZBDyZBE0CATGfBH+fBOEBAgEuxAEZ0QEeAgEY2QEd4AEmAgETqgIjqgKxAQMBmgKrAiOyAiwDAZYCuAIlzQIwAwGDAtUCKd8CNAMB+AH1AmT1Am0DAdUB8gJl8gJ/AwHTAfsCgAH7AosBAwHQAfoCc/oChwEDAc4B+ALjAfgC8QEDAc0BpgNwpgOAAQMByQGsA3OsA4kBAwHHAasDc6sDiQEDAcUBqgN1qgOLAQMBwwGtA2+tA4EBAwHBAaUDggGlA40BAwG/AacDhwGnA6EBAwG9AagDdagDiQEDAbsBowPoAaMDjQIDAboBqQNvqQN/AwG4AbcDngG3A4wCAwG0Ae8B3QHvAYICAwGfAf0BkwH9AcYCAwGZAYACKYQCQQMBlAGMAi2MAs0CAwGPAWA/YEgDAYkBXUBdUAMBhwFjH2M3AgFwZRV+IAIBcoEBH4EBQQIBXIMBFYsBGgIBao4BFZYBLQIBXqgBRagBUAIBWKUBRqUBVQIBVrIBRbIBUAIBU68BRq8BVgIBUcQBJ8QBfgIBGcYBHc8BNQIBHN4BS94BVgIBFtsBTNsBXAIBFKoClgGqAq4BAwGbArACUrACWwMBmQKtAlOtAmcDAZcCuQInzAIsAwGEAtYCK9YCzAIDAf0B1wIr3gI0AwH5AYICgAGCAosBAwGWAYAC4QGAAoICAwGVAYwCmwGMAsoCAwGQAWYXbC8DAYIBbRdxLwIBfnIXeC8CAXZ5F30pAgFzgwEjgwFHAgFrhQEZiQExAgFtkgFakgFsAgFokQFXkQFfAgFmkAFskAF3AgFklAFhlAF0AgFijgHRAY4B9QECAWGTAVqTAW0CAV/NAXTNAZUBAgEoygFuygGIAQIBJskBbskBjQECASTLAXDLAZEBAgEiyAF0yAF/AgEgzAFyzAGRAQIBHsYB2wHGAYECAgEduQI1uQJXAwGFArsCK78CQwMBkwLCAivKAkMDAYcC1gKaAdYCyQIDAf4B3AJa3AJjAwH8AdkCW9kCbwMB+gFpb2l6AwGEAWbPAWbvAQMBgwFvbm95AwGAAW3QAW3xAQIBf3RXdGoCAXx1WHWAAQIBenZednECAXhy0QFy8wECAXd7XnuJAQIBdIUBzwGFAewBAgFuuwLxAbsCngIDAZQCxgJ2xgKKAQMBkQLEAoIBxAKNAQMBjwLIAnTIAooBAwGNAsUCcMUCggEDAYsCwgLvAcICmAIDAYoCxwJ0xwKKAQMBiAI=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xuYmplcmtlXERvY3VtZW50c1xSZWlzZXJlZ25pbmdcUmVpc2VyZWduaW5nXFJlZGVzaWduZXQgcHJvc2Vzc1xNYWluLnhhbWzBAVEDxgQSAgEBsQQzsQQ2AwGqArMEM7MENgMBqQK5BDO5BDYDAagCvgQ1vgQ8AwGnAr8ENb8EPAMBpgKdAhf4Ax8DAd0B6AIfxQMnAwGgAecBF5QCHwMBigFTB6YEDwIBKrwBD4IEFwIBAp8CG+MCJgMB+gHKAzPKA1UDAfgByAMfyAPvAQMB9AHQAzPQA6ABAwHzAc4DH84DwgEDAfEB5QMz5QOiAQMB8AHUAx/jAyoDAecB9QMz9QOhAQMB5gHpAx/zAyoDAd8B6gIjvgMuAwGnAcEDngHBA74BAwGkAcIDpwHCA9EBAwGjAcMDkgLDA9cCAwGiAekBG5ICJgMBjAFVC7cBFgIBS4cEI4cEWwIBR4UED4UEnQECAUaNBCONBEECAUSLBA+LBPwBAgFAowQjowRAAgE+kQQPoQQaAgEsvgET4gEeAgERmQIrmQJJAgEOlwIXlwKTAgIBCpsCfJsCpAECAQj/Ayv/A04CAQb9Axf9A7UBAgEEowIdowKWAQMBowKkAh3iAiIDAfsByAONAcgD7AEDAfUBzgONAc4DvwEDAfIB1QMh1QPGAQMB7gHWAyHdAyoDAeoB3gMh4gM5AwHoAeoDIeoDvgEDAeQB6wMh8gMqAwHgAewCJ/8CMgMBywGiAye8AzIDAbIBhwMrjgM0AwGtAZYDK50DNAMBqAHrAR/xASoDAZ0B+QEjjgIuAwGNAVcPlgEaAgFangETswEYAgFMiwR9iwT5AQIBQZIEEZIEuAICATmTBBGXBCkCATWYBBGfBBoCATCgBBGgBOQBAgEtvwEV4QEgAgESlwKGAZcCkAICAQv9A4UB/QOyAQIBBaMCggGjApMBAwGkAqQCK6QCPAMB/AGmAiGwAiwDAZwCswIh4AIsAwH+AdUDjwHVA8MBAwHvAdsDTdsDUQMB7QHYA07YA2cDAesB3gPWAd4D8AEDAekB6gOPAeoDuwEDAeUB8ANN8ANRAwHjAe0DTu0DaQMB4QHtAin0AjIDAdkB9QIp/gJBAwHMAaQDK7ADQwMBtwG4Ay+4A48CAwGzAYwDZowDcQMBsAGJA2eJA4EBAwGuAZsDWZsDZAMBqwGYA1qYA2oDAakB7AEh8AE5AwGeAfoBJfoByQIDAZgB+wEljQIwAwGOAVgRXxoDAYYBYBF9FgIBb34RlQEWAgFbngH3AZ4B0AICAU2gARenASACAVWqARexASACAVCSBH+SBLUCAgE6lQRolQRzAgE3kwTKAZME6wECATadBDudBFACATOaBDyaBE0CATGgBH+gBOEBAgEuwQEZzgEeAgEY1gEd3QEmAgETpwIjpwKxAQMBoQKoAiOvAiwDAZ0CtQIlygIwAwGKAtICKdwCNAMB/wHyAmTyAm0DAdwB7wJl7wJ/AwHaAfwCefwCkwEDAdcB+wJ1+wKOAQMB1QH6Am36An8DAdMB+QJj+QJrAwHSAfgCgAH4AosBAwHQAfcCc/cChwEDAc4B9QLjAfUC8QEDAc0BpwNwpwOAAQMByQGtA3OtA4kBAwHHAawDc6wDiQEDAcUBqwN1qwOLAQMBwwGuA2+uA4EBAwHBAaYDggGmA40BAwG/AagDhwGoA6EBAwG9AakDdakDiQEDAbsBpAPoAaQDjQIDAboBqgNvqgN/AwG4AbgDngG4A4wCAwG0AewB3QHsAYICAwGfAfoBkwH6AcYCAwGZAf0BKYECQQMBlAGJAi2JAs0CAwGPAV0/XUgDAYkBWkBaUAMBhwFgH2A3AgFwYhV7IAIBcn4ffkECAVyAARWIARoCAWqLARWTAS0CAV6lAUWlAVACAViiAUaiAVUCAVavAUWvAVACAVOsAUasAVYCAVHBASfBAX4CARnDAR3MATUCARzbAUvbAVYCARbYAUzYAVwCARSnApYBpwKuAQMBogKtAlKtAlsDAaACqgJTqgJnAwGeArYCJ8kCLAMBiwLTAivTAswCAwGEAtQCK9sCNAMBgAL/AYAB/wGLAQMBlgH9AeEB/QGCAgMBlQGJApsBiQLKAgMBkAFjF2kvAwGCAWoXbi8CAX5vF3UvAgF2dhd6KQIBc4ABI4ABRwIBa4IBGYYBMQIBbY8BWo8BbAIBaI4BV44BXwIBZo0BbI0BdwIBZJEBYZEBdAIBYosB0QGLAfUBAgFhkAFakAFtAgFfygF0ygGVAQIBKMcBbscBiAECASbGAW7GAY0BAgEkyAFwyAGRAQIBIsUBdMUBfwIBIMkBcskBkQECAR7DAdsBwwGBAgIBHbYCNbYCVwMBjAK4Aiu8AkMDAZoCvwIrxwJDAwGOAtMCmgHTAskCAwGFAtkCWtkCYwMBgwLWAlvWAm8DAYECZm9megMBhAFjzwFj7wEDAYMBbG5seQMBgAFq0AFq8QECAX9xV3FqAgF8clhygAECAXpzXnNxAgF4b9EBb/MBAgF3eF54iQECAXSCAc8BggHsAQIBbrgC8QG4Ap4CAwGbAsMCdsMCigEDAZgCwQKCAcECjQEDAZYCxQJ0xQKKAQMBlALCAnDCAoIBAwGSAr8C7wG/ApgCAwGRAsQCdMQCigEDAY8C</sads:DebugSymbol.Symbol>
   </StateMachine>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -853,7 +856,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="211,142">
+      <sap2010:ViewStateData Id="State_3" sap:VirtualizedContainerService.HintSize="444,1018">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">415,610</av:Point>
@@ -960,7 +963,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_5" sap:VirtualizedContainerService.HintSize="530,1029">
+      <sap2010:ViewStateData Id="State_5" sap:VirtualizedContainerService.HintSize="218,147">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">411,186.5</av:Point>

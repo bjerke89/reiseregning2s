@@ -901,11 +901,10 @@
   },
   "libraries": {
     "AvalonEdit/5.0.3": {
-      "sha512": "O7qf3H3SP2VrQujwmzvb3hJ+lw4rNWcZkpMH8T0qb/cA1UccoJIZ9qL/+DM7bws9l8Hxnyk7GUYVFrCSZeH+uA==",
+      "sha512": "L5CgXRniZRxI/tjoBztVgZnvTL1F/qKrRJa+Q88I0Gl78WRNaqdMkuOlkAsOHTauBGZSQNDO0/X+xIpzfzmLdQ==",
       "type": "package",
       "path": "avalonedit/5.0.3",
       "files": [
-        ".signature.p7s",
         "avalonedit.5.0.3.nupkg.sha512",
         "avalonedit.nuspec",
         "lib/Net35/ICSharpCode.AvalonEdit.dll",
@@ -926,11 +925,10 @@
       ]
     },
     "Caliburn.Micro/3.0.1": {
-      "sha512": "34GUogBL8tS1rWCSugKwaOdmZZz162JC0K3HCSPuSlkCZwA1zDTspUp7owXigOjliCSiBzP1ltBFMWpLxs9BtQ==",
+      "sha512": "6RaRnvbHnwm2kx9N+xyI6+qCLDJaAGsV1JgKlQ2QWApYNinpqO1GglwZdCWQ6eWj0var+XjbM8V7NYqB/C1elg==",
       "type": "package",
       "path": "caliburn.micro/3.0.1",
       "files": [
-        ".signature.p7s",
         "caliburn.micro.3.0.1.nupkg.sha512",
         "caliburn.micro.nuspec",
         "lib/MonoAndroid10/Caliburn.Micro.Platform.Core.dll",
@@ -989,11 +987,10 @@
       ]
     },
     "Caliburn.Micro.Core/3.0.1": {
-      "sha512": "rYCObUe1g/ks4kTEPMFc4yFShYWkL6P5sfUsJOPGSKPXCsnKXL0XaclU3XGWAHBeNTPBgJO9pJBfMBcaq3iyRg==",
+      "sha512": "CZPp0HVaHiW/N6JGsXpyJXnoyVRhFMY+H2uZcD24oNPczLOX1WuWsyVrSdagqUhjZnP1wV42Y6PkIUXEWWgOCg==",
       "type": "package",
       "path": "caliburn.micro.core/3.0.1",
       "files": [
-        ".signature.p7s",
         "caliburn.micro.core.3.0.1.nupkg.sha512",
         "caliburn.micro.core.nuspec",
         "lib/net40/Caliburn.Micro.XML",
@@ -1075,11 +1072,10 @@
       ]
     },
     "Extended.Wpf.Toolkit/2.8.0": {
-      "sha512": "YzLQ/sB91g0gRftvlPGOqYJe6TwiPTQoYhO+4ZSsnxaMEQZ5KZIQySTtsTWZ0HJC5+xrgk1Z/if7kjY4cSRPdw==",
+      "sha512": "wKjJl4sDyXTVzgiKTBTw8jT0/3OwpEklQuWGe1Nz2HX0joiBeUzIurY2mnERni+8XHwateRcuks6yk/cuR22fA==",
       "type": "package",
       "path": "extended.wpf.toolkit/2.8.0",
       "files": [
-        ".signature.p7s",
         "extended.wpf.toolkit.2.8.0.nupkg.sha512",
         "extended.wpf.toolkit.nuspec",
         "lib/net35/WPFToolkit.dll",
@@ -1104,11 +1100,10 @@
       ]
     },
     "Fluent.Ribbon/3.5.1.198": {
-      "sha512": "qMveoU49lCybLhMI8MuSIPFVYlUaBVVuxOHsEgleEeaaOUxvuFQP8gh+hKjCPpjYHU/srdyrFBLsajNQRDqiXw==",
+      "sha512": "Ix4NJKGVHqeI1PeF1PB6as5L7qRx2hyPiXg+iNJfjru33rRlAthWlyUTS4HJEajWPxCJfIaVWx5gPdBE7nVJlQ==",
       "type": "package",
       "path": "fluent.ribbon/3.5.1.198",
       "files": [
-        ".signature.p7s",
         "fluent.ribbon.3.5.1.198.nupkg.sha512",
         "fluent.ribbon.nuspec",
         "lib/net40/Fluent.XML",
@@ -1123,7 +1118,7 @@
       ]
     },
     "Humanizer.Core/2.4.2": {
-      "sha512": "A8amPZrfrFU+6BO+t/NLejofWah39XsRuovQqaHdYYtXANM+dexMrc+AbLmuH3qNV4hJv6FArBsBBtZcaODLZg==",
+      "sha512": "bdHOGpZNL92TebkGuaBe/RpxUrDeRDZQLRdFPEbM+miGV1V3ITmw6iZtGYzp44DUd60Fmw5mgHG2HaFSC4hQdQ==",
       "type": "package",
       "path": "humanizer.core/2.4.2",
       "files": [
@@ -1236,11 +1231,10 @@
       ]
     },
     "RestSharp/105.0.1": {
-      "sha512": "NtGkYUFbDNw3FGWvQlkqM4wpNM/0lExEudDN3rP1MNbH8f0qM/K9EagDNhq5XzSMST40RD3ikV1J2YaHKvZZ8Q==",
+      "sha512": "2jEivNmSZFsK/iyoOu0l9+pEM2hXLQCvOQdLgQcr92cdnirl2xm+Wddy7lP6JTwZSLjAQ1ogHlal1tLu5hfZPw==",
       "type": "package",
       "path": "restsharp/105.0.1",
       "files": [
-        ".signature.p7s",
         "lib/net35-client/RestSharp.dll",
         "lib/net35-client/RestSharp.xml",
         "lib/net35/RestSharp.dll",
@@ -1881,15 +1875,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nicholas.bjerke\\.nuget\\packages\\": {}
+    "C:\\Users\\nbjerke\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "SopraSteria_REFrameWork",
       "projectName": "SopraSteria_REFrameWork",
-      "projectPath": "C:\\Users\\nicholas.bjerke\\Documents\\Reiseregning2s\\Reiseregning\\Redesignet prosess\\.local",
-      "packagesPath": "C:\\Users\\nicholas.bjerke\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nicholas.bjerke\\Documents\\Reiseregning2s\\Reiseregning\\Redesignet prosess\\.local"
+      "projectPath": "C:\\Users\\nbjerke\\Documents\\Reiseregning\\Reiseregning\\Redesignet prosess\\.local",
+      "packagesPath": "C:\\Users\\nbjerke\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nbjerke\\Documents\\Reiseregning\\Reiseregning\\Redesignet prosess\\.local"
     },
     "frameworks": {
       "net461": {

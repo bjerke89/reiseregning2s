@@ -1,6 +1,6 @@
 {
-  "name": "SopraSteria_REFrameWork",
-  "description": "Sopra Steria_REFrameWork Template",
+  "name": "Viderefakturering av Reiseregning 2S",
+  "description": "RPA prosess for viderefakturering av reiseregninger",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Cognitive.Activities": "[2.1.6863.31992]",
